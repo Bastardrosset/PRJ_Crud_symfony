@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+# user_update:
+#     path: user/update/{id}
+#     controller: App\Controller\UserController::update
+home: 
+    path: /
+    controller: App\Controller\HomeController::index
+user_create_test:
+    path: /user/create_test
+    controller: App\Controller\UserController::test_create

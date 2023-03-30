@@ -1,0 +1,22 @@
+FROM nginx:alpine
+
+ARG BUILD_VERSION
+ARG BUILD_DATE
+
+LABEL maintainer="florian@alt.bzh"
+LABEL org.label-schema.schema-version=$BUILD_VERSION
+LABEL org.label-schema.build-date=$BUILD_DATE
+
+LABEL org.label-schema.name="dockerfile/nginx-symfony"
+LABEL org.label-schema.url="https://git-v2.a-p-c-t.net/devops/dockerfile"
+LABEL org.label-schema.description="Dockerfile used for web server Symfony 5 with php:9000 upstream"
+LABEL org.label-schema.type.name="nginx"
+LABEL org.label-schema.type.version="latest"
+LABEL org.label-schema.type.env="production"
+LABEL org.label-schema.service="nginx"
+
+ADD nginx.conf /etc/nginx/
+ADD symfony.conf /etc/nginx/conf.d/default.conf
+RUN echo "upstream php-upstream { server php:9000; }" > /etc/nginx/conf.d/upstream.conf
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
