@@ -33,6 +33,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function searchByFirstname($firstname, $lastname)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT u
+            FROM App\Entity\User u
+            WHERE u.firstname = :firstname 
+            AND u.lastname = :lastname
+            ORDER BY u.firstname ASC'
+        )->setParameter('firstname', $firstname)->setParameter('lastname', $lastname);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
     public function remove(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -42,6 +57,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+
+    public function createQueryTwo(){
+        $firstname = "bruno";
+        $lastname= "gaccio";
+        $qb = $this->createQueryBuilder('u')
+        //selectionne les colonnes
+            ->select('u.firstname', 'u.lastname', 'u.email')
+            //conditions de recherche
+            ->where('u.firstname = :firstname')
+            ->where('u.lastname = :lastname')
+            // ordonne par firstname du plus petit au plus grand
+            ->orderBy('u.firstname', 'ASC')
+            //rend le parametre firstname disponbile dans la query
+            ->setParameter('firstname', $firstname)
+            ->setParameter('lastname', $lastname);
+        // rajoute la condition lastname =gaccio dans la query
+        $qb->andWhere('u.lastname = "gaccio"');
+        // donne à query la valeur de $qb->getQuery()
+        $query = 
+        //créé la query à partir de qb
+        $qb->getQuery();
+        // exxeucte la query
+        return $query->execute();
+
+    }
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

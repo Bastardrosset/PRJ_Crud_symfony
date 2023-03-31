@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\UserRepository;
 
 use App\Entity\User;
 class UserController extends AbstractController
@@ -25,11 +26,24 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/user/create_test}', name:'user_create_test')]
+    #[Route('user/search', name:'user_search')]
+    public function user_search(Request $request, UserRepository $userRepository){
+
+        $firstname = $request->query->get('firstname');
+        $lastname = $request->query->get('lastname');
+        // var_dump($firstname);
+        $users = $userRepository->searchByFirstname($firstname, $lastname);
+        return $this->render('user/search.html.twig',[
+            'users'=> $users
+        ]);
+    }
+
+    #[Route('/user/create_test', name:'user_create_test')]
     public function test_create():Response{
         return $this->render('user/create_test.html.twig', [
         ]);
     }
+
     #[Route('/user/create_test_post}', name:'create_user_post')]
     public function create_user(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher):Response{
         $user = new User();
@@ -55,7 +69,6 @@ class UserController extends AbstractController
         $form = $this->createForm(UserCreationFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->get('password')->getData());
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -71,6 +84,7 @@ class UserController extends AbstractController
             'userCreationForm' => $form->createView(),
         ]);
     }
+
     //update
     #[Route('/user/edit/{id}', name: 'user_update')]
     public function update(Request $request, EntityManagerInterface $entityManager, int $id, UserPasswordHasherInterface $userPasswordHasher ): Response
