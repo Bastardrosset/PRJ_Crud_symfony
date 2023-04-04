@@ -25,6 +25,7 @@
         "symfony/http-client": "6.2.*",
         "symfony/intl": "6.2.*",
         "symfony/mailer": "6.2.*",
+        "symfony/maker-bundle": "^1.48",
         "symfony/mime": "6.2.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "6.2.*",
@@ -96,7 +97,6 @@
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/debug-bundle": "6.2.*",
-        "symfony/maker-bundle": "^1.48",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "6.2.*",
         "symfony/web-profiler-bundle": "6.2.*"

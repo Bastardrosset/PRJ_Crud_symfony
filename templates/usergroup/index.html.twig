@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserGroup index{% endblock %}
+
+{% block body %}
+    <h1>UserGroup index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usergroup in usergroups %}
+            <tr>
+                <td>{{ usergroup.id }}</td>
+                <td>{{ usergroup.name }}</td>
+                <td>{{ usergroup.description }}</td>
+                <td>
+                    <a href="{{ path('app_usergroup_show', {'id': usergroup.id}) }}">show</a>
+                    <a href="{{ path('app_usergroup_edit', {'id': usergroup.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_usergroup_new') }}">Create new</a>
+{% endblock %}
