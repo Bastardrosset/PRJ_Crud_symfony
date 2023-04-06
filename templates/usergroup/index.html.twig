@@ -1,37 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}UserGroup index{% endblock %}
+{% block title %}Hello UserGroupController!{% endblock %}
 
 {% block body %}
-    <h1>UserGroup index</h1>
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for usergroup in usergroups %}
-            <tr>
-                <td>{{ usergroup.id }}</td>
-                <td>{{ usergroup.name }}</td>
-                <td>{{ usergroup.description }}</td>
-                <td>
-                    <a href="{{ path('app_usergroup_show', {'id': usergroup.id}) }}">show</a>
-                    <a href="{{ path('app_usergroup_edit', {'id': usergroup.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    <a href="{{ path('app_usergroup_new') }}">Create new</a>
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/thexa/OneDrive/Documents/dossier_Symphony/symfony_crud/src/Controller/UserGroupController.php'|file_link(0) }}">src/Controller/UserGroupController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/thexa/OneDrive/Documents/dossier_Symphony/symfony_crud/templates/userGroup/index.html.twig'|file_link(0) }}">templates/userGroup/index.html.twig</a></code></li>
+    </ul>
+</div>
 {% endblock %}
